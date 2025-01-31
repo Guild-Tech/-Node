@@ -35,7 +35,7 @@ export default function Header() {
         isScrolled ? 'bg-gray-900/95 backdrop-blur-sm shadow-lg' : 'bg-gray-900'
       }`}
     >
-      <div className="container mx-auto max-md:px-2">
+      <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link 
@@ -76,10 +76,8 @@ export default function Header() {
                 )}
               </Link>
             ))}
-          </nav>
-          <div className="max-md:hidden">
             <Cart />
-          </div>
+          </nav>
 
           {/* Mobile Menu Button */}
           <div className="flex items-center space-x-4 md:hidden">

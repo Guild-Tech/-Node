@@ -2,21 +2,18 @@ import { useState } from 'react';
 import { products } from '../data/products';
 import ProductCard from '../components/product/ProductCard';
 import Pagination from '../components/product/Pagination';
-import Filters from '../components/product/Filters';
-import { Product } from '../types';
 
 const ITEMS_PER_PAGE = 6;
 
 export default function Products() {
   const [currentPage, setCurrentPage] = useState(1);
-  const [filteredProducts, setFilteredProducts] = useState(products);
-
-  const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
+  
+  const totalPages = Math.ceil(products.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const endIndex = startIndex + ITEMS_PER_PAGE;
-  const currentProducts = filteredProducts.slice(startIndex, endIndex);
+  const currentProducts = products.slice(startIndex, endIndex);
 
-  const handlePageChange = (page:any) => {
+  const handlePageChange = (page: number) => {
     setCurrentPage(page);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -27,16 +24,18 @@ export default function Products() {
         Choose Your Node Hardware
       </h2>
       
-      <Filters setFilteredProducts={setFilteredProducts} setCurrentPage={setCurrentPage} />
-
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-        {currentProducts.map((product: Product, index: number) => (
-          <ProductCard key={product.id} product={product} index={index}/>
+        {currentProducts.map(product => (
+          <ProductCard key={product.id} product={product} />
         ))}
       </div>
 
       {totalPages > 1 && (
-        <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
       )}
     </main>
   );
