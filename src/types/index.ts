@@ -22,7 +22,12 @@ export interface Product {
   name: string;
   description: string;
   basePrice: number;
+  category: string; 
+  price: number;
   image: string;
+  brand: string;
+  rating: number;
+  inStock: boolean;
   specs: {
     defaultRam: string;
     defaultStorage: string;
@@ -35,3 +40,15 @@ export interface CartItem extends Product {
   config: NodeConfig;
   totalPrice: number;
 }
+export type FilterState = {
+  search: string;
+  category: string;
+  minPrice: number;
+  maxPrice: number;
+  brands: string[];
+  minRating: number;
+  inStockOnly: boolean;
+  ram: string[];
+  processor: string[];
+  ssd: string[];
+};
