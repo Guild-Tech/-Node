@@ -1,95 +1,71 @@
+/**
+ * Product Schema Definition
+ * 
+ * This schema defines the structure for storing product details in the database.
+ * Each product has an ID, name, description, base price, and an image.
+ * Additionally, the schema includes customizable specifications (specs),
+ * such as software, RAM, storage, and processor. 
+ * 
+ * The available options for each spec are defined using enums, with the first 
+ * value serving as the default selection when a user views the product.
+ * 
+ * The frontend allows users to switch options using a dropdown, but by default, 
+ * the first item in each enum is preselected.
+ */
+
 const mongoose = require('mongoose');
 
-// NodeConfig schema definition
-const nodeConfigSchema = new mongoose.Schema({
-  software: {
-    type: String,
-    enum: ['Dappnode', 'Stereum', 'Sege', 'Coincashew', 'Blockops'],
-    required: true,
-  },
-  ram: {
-    type: String,
-    enum: ['16GB', '32GB', '64GB'],
-    required: true,
-  },
-  storage: {
-    type: String,
-    enum: ['2TB SSD', '4TB SSD'],
-    required: true,
-  },
-  processor: {
-    type: String,
-    enum: ['Intel i3', 'Intel i5', 'Intel i7'],
-    required: true,
-  },
-});
-
-// ShipmentFormData schema definition
-const shipmentFormDataSchema = new mongoose.Schema({
-  firstName: { type: String, required: true },
-  lastName: { type: String, required: true },
-  email: { type: String, required: true },
-  phone: { type: String, required: true },
-  address: { type: String, required: true },
-  city: { type: String, required: true },
-  state: { type: String, required: true },
-  zipCode: { type: String, required: true },
-  country: { type: String, required: true },
-});
-
-// Product schema definition
+// Define the product schema
 const productSchema = new mongoose.Schema({
   id: {
-    type: String,
+    type: String, // Unique identifier for the product
     required: true,
     unique: true,
   },
   name: {
-    type: String,
+    type: String, // Name of the product
     required: true,
   },
   description: {
-    type: String,
+    type: String, // Description of the product
     required: true,
   },
   basePrice: {
-    type: Number,
+    type: Number, // Price of the product
     required: true,
   },
   image: {
-    type: String,
+    type: String, // URL or path of the product image
     required: true,
   },
   specs: {
-    defaultRam: {
+    software: {
       type: String,
-      enum: ['16GB', '32GB', '64GB'],
+      enum: ['Dappnode', 'Stereum', 'Sege', 'Coincashew', 'Blockops'], // Available software options
       required: true,
+      default: 'Dappnode', // Default selection
     },
-    defaultStorage: {
+    ram: {
       type: String,
-      enum: ['2TB SSD', '4TB SSD'],
+      enum: ['16GB', '32GB', '64GB'], // RAM size options
       required: true,
+      default: '16GB', // Default RAM size
     },
-    defaultProcessor: {
+    storage: {
       type: String,
-      enum: ['Intel i3', 'Intel i5', 'Intel i7'],
+      enum: ['2TB SSD', '4TB SSD'], // Storage options
       required: true,
+      default: '2TB SSD', // Default storage selection
+    },
+    processor: {
+      type: String,
+      enum: ['Intel i3', 'Intel i5', 'Intel i7'], // Processor choices
+      required: true,
+      default: 'Intel i3', // Default processor
     },
   },
-  shipmentDetails: shipmentFormDataSchema, // Embedding shipment details
-  nodeConfig: nodeConfigSchema, // Embedding node config details
 });
 
-// CartItem schema definition (referencing Product and NodeConfig)
-const cartItemSchema = new mongoose.Schema({
-  product: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' },
-  quantity: { type: Number, required: true },
-  config: nodeConfigSchema, // Using the same nodeConfig schema
-  totalPrice: { type: Number, required: true },
-});
-
-const Product = mongoose.model('Product', productSchema, 'products');
-// const CartItem = mongoose.model('CartItem', cartItemSchema, 'cartItems');
-
+// Create and export the Product model
+const Product = mongoose.model('Product', productSchema);
 module.exports = { Product };
