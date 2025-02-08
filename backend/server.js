@@ -43,7 +43,12 @@ app.use(bodyParser.json()); // Parse incoming JSON data in the request body
 const paymentRouter = require('./routes/paymentRoutes'); // Import payment routes
 app.use('/api', paymentRouter); // Prefix payment routes with /api
 
-const port = process.env.PORT; // Get the port from environment variables
+// Add a root route to handle GET requests to "/"
+app.get('/', (req, res) => {
+  res.send("Welcome to the API. Server is running successfully!");
+});
+
+const port = process.env.PORT || 3000; // Ensure a default port if not set in the environment variables
 app.listen(port, () => { // Start the server and listen on the specified port
   console.log(`Server running on http://localhost:${port}`); // Log a message indicating the server is running
 });
