@@ -8,11 +8,12 @@
 */
 
 const express = require("express"); // Import express for creating the router
-const { getAllProducts } = require("../controllers/productController");  // Import the controller function to fetch all products
+const { getAllProducts, getProductById } = require("../controllers/productController");  // Import the controller function to fetch all products
 const router = express.Router(); // Create a new router instance for defining routes
 
 // Define routes
 router.get("/products", getAllProducts);  // When a GET request is made to "/products", call the getAllProducts function
+router.get("/products/:id", getProductById);  // Fetch product by ID
 
 // Export the router so it can be used in other files
 module.exports = router;

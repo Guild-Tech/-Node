@@ -18,7 +18,7 @@ const mongoose = require('mongoose');
 // Define the product schema
 const productSchema = new mongoose.Schema({
   id: {
-    type: String, // Unique identifier for the product
+    type: Number, // Unique identifier for the product
     required: true,
     unique: true,
   },
