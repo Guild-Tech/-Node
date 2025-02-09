@@ -1,54 +1,59 @@
-/*
-  This is an Express.js server setup for handling product, order, and payment-related routes.
-  It loads environment variables using the 'dotenv' package, connects to a MongoDB database, 
-  and uses CORS and body-parser middleware. The server exposes APIs for products, orders, 
-  and payment routes with the base URL '/api'. 
+// Load environment variables and required modules
+const dotenv = require('dotenv');
+dotenv.config({ path: './process.env' });
 
-  The following libraries are utilized:
-  - dotenv: For loading environment variables from a .env file
-  - express: For setting up the server and defining routes
-  - body-parser: For parsing incoming request bodies
-  - cors: For handling cross-origin requests
-  - mongoose: For interacting with MongoDB
-*/
+const express = require("express");
+const cors = require("cors");
+const session = require("express-session");
+const bodyParser = require("body-parser");
 
-const dotenv = require('dotenv'); // Import dotenv to load environment variables
-dotenv.config({ path: './process.env' }); // Load environment variables from the specified file
+// Import route handlers
+const productRoutes = require("./routes/productRoutes");
+const orderRoutes = require("./routes/orderRoutes");
+const adminRoutes = require("./routes/adminRoutes");
+const paymentRouter = require('./routes/paymentRoutes');
 
-const express = require("express"); // Import Express.js to create the server
-const productRoutes = require("./routes/productRoutes"); // Import product routes to handle product-related API requests
-const orderRoutes = require("./routes/orderRoutes"); // Import order routes to handle order-related API requests
-
-const app = express(); // Create an instance of an Express app
-
-app.use(express.json()); // Middleware to parse incoming JSON bodies
-
-const cors = require("cors"); // Import CORS to handle cross-origin resource sharing
-const bodyParser = require("body-parser"); // Import body-parser to parse request bodies (body-parser is mostly deprecated, but still useful for certain setups)
+// Initialize the app
+const app = express();
 
 // Database connection setup
-require('./config/database');  // Import the database configuration to connect to MongoDB
+require('./config/database');
 
-// Use the product and order routes with '/api' prefix for clean route structure
-app.use("/api", productRoutes); // All product-related routes will be prefixed with /api
-app.use("/api", orderRoutes); // All order-related routes will also be prefixed with /api
+// Middleware setup
+app.use(express.json());
+app.use(bodyParser.json());
 
-// Setup middleware for handling CORS (cross-origin requests)
-app.use(cors()); 
+// Configure CORS to allow frontend connection with credentials
+app.use(cors({
+  origin: "http://localhost:5173", // Change this if frontend URL is different
+  credentials: true, // Allow cookies and session sharing
+}));
 
-// Setup middleware to parse JSON data in request bodies
-app.use(bodyParser.json()); // Parse incoming JSON data in the request body
+// Set up session middleware
+app.use(session({
+  secret: "super-secret-key",
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    httpOnly: true,
+    secure: false, // Change to `true` if using HTTPS
+    sameSite: "lax",
+  },
+}));
 
-// Import and use the payment routes for handling payment-related API requests
-const paymentRouter = require('./routes/paymentRoutes'); // Import payment routes
-app.use('/api', paymentRouter); // Prefix payment routes with /api
+// Define routes
+app.use("/api", productRoutes);
+app.use("/api", orderRoutes);
+app.use("/api", paymentRouter);
+app.use("/admin", adminRoutes);
 
-// Add a root route to handle GET requests to "/"
+// Root route
 app.get('/', (req, res) => {
   res.send("Welcome to the API. Server is running successfully!");
 });
 
-const port = process.env.PORT || 3000; // Ensure a default port if not set in the environment variables
-app.listen(port, () => { // Start the server and listen on the specified port
-  console.log(`Server running on http://localhost:${port}`); // Log a message indicating the server is running
+// Start the server
+const port = process.env.PORT || 4000;
+app.listen(port, () => {
+  console.log(`Server running on http://localhost:${port}`);
 });
