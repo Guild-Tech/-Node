@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "seed": "node scripts/ importProducts.js"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
@@ -22,6 +23,7 @@
     "react-intersection-observer": "^9.5.2",
     "react-router-dom": "^6.22.0",
     "three": "^0.161.0",
+    "vite-react-typescript-starter": "file:",
     "web3": "^4.5.0",
     "zustand": "^4.5.1"
   },
