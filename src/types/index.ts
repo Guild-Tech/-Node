@@ -35,3 +35,4 @@ export interface CartItem extends Product {
   config: NodeConfig;
   totalPrice: number;
 }
+

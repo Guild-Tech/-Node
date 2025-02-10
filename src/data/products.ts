@@ -2,6 +2,7 @@ import { Product } from '../types';
 
 export const products: Product[] = [
   {
+<<<<<<< HEAD
     id: 'mini-pc-1',
     name: 'EcoNode Starter',
     description: 'Perfect for beginners entering the Ethereum ecosystem. This energy-efficient setup comes with pre-configured node software and essential hardware specifications. Ideal for running a full node or getting started with validation. Features quiet operation and compact design, perfect for home or office environments.',
@@ -110,3 +111,41 @@ export const products: Product[] = [
     }
   }
 ];
+=======
+    id: '1',
+    name: 'DappNode Mini',
+    description: 'Compact and powerful node hardware',
+    basePrice: 1200,
+    image: '/images/dappnode-mini.jpg',
+    specs: {
+      defaultRam: '16GB',
+      defaultStorage: '2TB SSD',
+      defaultProcessor: 'Intel i3',
+    },
+  },
+  {
+    id: '2',
+    name: 'Stereum Pro',
+    description: 'Professional-grade node hardware',
+    basePrice: 1800,
+    image: '/images/stereum-pro.jpg',
+    specs: {
+      defaultRam: '32GB',
+      defaultStorage: '4TB SSD',
+      defaultProcessor: 'Intel i5',
+    },
+  },
+  {
+    id: '3',
+    name: 'CoinCashew Ultra',
+    description: 'Ultra-fast node for crypto staking',
+    basePrice: 2500,
+    image: '/images/coincashew-ultra.jpg',
+    specs: {
+      defaultRam: '64GB',
+      defaultStorage: '4TB SSD',
+      defaultProcessor: 'Intel i7',
+    },
+  },
+];
+>>>>>>> 7d6ba33 (hello)

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Server, Menu, X, ShoppingCart } from 'lucide-react';
+import { Server, Menu, X } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import Cart from '../cart/Cart';
@@ -35,7 +35,7 @@ export default function Header() {
         isScrolled ? 'bg-gray-900/95 backdrop-blur-sm shadow-lg' : 'bg-gray-900'
       }`}
     >
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto max-md:px-2">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link 
