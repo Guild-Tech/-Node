@@ -98,6 +98,7 @@ function ProductDetailPage() {
                 <span className="mr-2">🚀</span> Best For: Running validator
                 nodes ({product?.supported_blockchains.join(", ")})
               </p>
+              
 
               <p className="flex items-center text-lg">
                 <span className="mr-2">✅</span> Pre-installed Software: {product?.specs?.software}
