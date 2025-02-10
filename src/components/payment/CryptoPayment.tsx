@@ -16,7 +16,7 @@ export default function CryptoPayment({
   onError,
 }: CryptoPaymentProps) {
   const { open } = useWeb3Modal();
-  const { address, isConnected } = useAccount();
+  const { isConnected } = useAccount();
   const [isProcessing, setIsProcessing] = useState(false);
 
   const handlePayment = async () => {
