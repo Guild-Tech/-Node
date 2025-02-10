@@ -26,7 +26,7 @@ function ProductDetailPage() {
     })
   }, [id])
 
-  // console.log(product)
+  console.log(product)
   return (
     <div className="min-h-screen bg-white ">
       <div className="flex items-center gap-8 p-5">
@@ -89,25 +89,33 @@ function ProductDetailPage() {
           >
             <div className="text-[#0D1B2A] p-7">
               <p className="text-lg mb-4">
-                {product?.description}
+                {product?.details}
               </p>
 
               <p className="text-lg font-semibold">Windows 11 Ready!</p>
 
               <p className="flex items-center text-lg">
                 <span className="mr-2">🚀</span> Best For: Running validator
-                nodes (Ethereum, Solana, Bitcoin)
+                nodes ({product?.supported_blockchains.join(", ")})
               </p>
 
               <p className="flex items-center text-lg">
-                <span className="mr-2">✅</span> Pre-installed Software:
-                DAppNode OS
+                <span className="mr-2">✅</span> Pre-installed Software: {product?.specs?.software}
+              </p>
+              <p className="flex items-center text-lg">
+                <span className="mr-2">✅</span> Best for: {product?.pre_installed_software}
+              </p> <p className="flex items-center text-lg">
+                <span className="mr-2">✅</span> processor: {product?.processor}
+              </p> <p className="flex items-center text-lg">
+                <span className="mr-2">✅</span> ram: {product?.specs?.ram}
+              </p> <p className="flex items-center text-lg">
+                <span className="mr-2">✅</span> storage: {product?.specs?.storage}
               </p>
 
-              <p className="flex items-center text-lg">
+              {/* <p className="flex items-center text-lg">
                 <span className="mr-2">⭐</span> Customer Ratings:{" "}
                 <span className="">★★★★★ (4.9/5 from 23 reviews)</span>
-              </p>
+              </p> */}
             </div>
 
             <div className="p-7 text-black">
