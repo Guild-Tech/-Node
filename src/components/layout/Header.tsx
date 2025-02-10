@@ -76,8 +76,10 @@ export default function Header() {
                 )}
               </Link>
             ))}
-            <Cart />
           </nav>
+          <div className="max-md:hidden">
+            <Cart />
+          </div>
 
           {/* Mobile Menu Button */}
           <div className="flex items-center space-x-4 md:hidden">

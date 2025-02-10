@@ -3,41 +3,50 @@ import { Product } from '../types';
 export const products: Product[] = [
   {
 <<<<<<< HEAD
+<<<<<<< HEAD
     id: 'mini-pc-1',
     name: 'EcoNode Starter',
     description: 'Perfect for beginners entering the Ethereum ecosystem. This energy-efficient setup comes with pre-configured node software and essential hardware specifications. Ideal for running a full node or getting started with validation. Features quiet operation and compact design, perfect for home or office environments.',
     basePrice: 599,
     image: 'https://images.unsplash.com/photo-1587202372634-32705e3bf49c?auto=format&fit=crop&q=80&w=800',
+=======
+    id: '1',
+    name: 'DappNode Mini',
+    description: 'Compact and powerful node hardware',
+    basePrice: 1200,
+    image: '/images/dappnode-mini.jpg',
+>>>>>>> 5b2de16f9723576682f9db66bd844edd4300ea86
     specs: {
       defaultRam: '16GB',
       defaultStorage: '2TB SSD',
-      defaultProcessor: 'Intel i3'
-    }
+      defaultProcessor: 'Intel i3',
+    },
   },
   {
-    id: 'mini-pc-2',
-    name: 'EcoNode Pro',
-    description: 'Advanced configuration designed for serious validators and developers. Enhanced processing power and memory for superior performance. Supports multiple clients and testing environments simultaneously. Includes premium thermal management and redundant storage options for maximum reliability.',
-    basePrice: 899,
-    image: 'https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?auto=format&fit=crop&q=80&w=800',
+    id: '2',
+    name: 'Stereum Pro',
+    description: 'Professional-grade node hardware',
+    basePrice: 1800,
+    image: '/images/stereum-pro.jpg',
     specs: {
       defaultRam: '32GB',
-      defaultStorage: '2TB SSD',
-      defaultProcessor: 'Intel i5'
-    }
+      defaultStorage: '4TB SSD',
+      defaultProcessor: 'Intel i5',
+    },
   },
   {
-    id: 'mini-pc-3',
-    name: 'EcoNode Enterprise',
-    description: 'Our flagship model for institutional validators and professional node operators. Maximum performance with enterprise-grade components. Supports multiple validators with room for expansion. Features advanced cooling, redundant power options, and premium build quality for 24/7 operation.',
-    basePrice: 1299,
-    image: 'https://images.unsplash.com/photo-1593640495253-23196b27a87f?auto=format&fit=crop&q=80&w=800',
+    id: '3',
+    name: 'CoinCashew Ultra',
+    description: 'Ultra-fast node for crypto staking',
+    basePrice: 2500,
+    image: '/images/coincashew-ultra.jpg',
     specs: {
       defaultRam: '64GB',
       defaultStorage: '4TB SSD',
-      defaultProcessor: 'Intel i7'
-    }
+      defaultProcessor: 'Intel i7',
+    },
   },
+<<<<<<< HEAD
   {
     id: 'mini-pc-4',
     name: 'EcoNode Lite',
@@ -149,3 +158,6 @@ export const products: Product[] = [
   },
 ];
 >>>>>>> 7d6ba33 (hello)
+=======
+];
+>>>>>>> 5b2de16f9723576682f9db66bd844edd4300ea86

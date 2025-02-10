@@ -7,14 +7,15 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "seed": "node scripts/ importProducts.js"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@react-three/drei": "^9.99.0",
     "@react-three/fiber": "^8.15.16",
     "@stripe/stripe-js": "^2.4.0",
     "@depay/web3-payments": "^13.13.0",
-    "@emailjs/browser": "^4.4.1",
     "@web3modal/react": "^2.7.1",
     "country-telephone-data": "^0.6.3",
     "framer-motion": "^10.16.4",
@@ -28,6 +29,7 @@
     "react-icons": "^5.4.0",
     "react-select": "^5.10.0",
     "wagmi": "^2.14.11",
+    "vite-react-typescript-starter": "file:",
     "web3": "^4.5.0",
     "zustand": "^4.5.1"
   },
@@ -50,4 +52,3 @@
     "vite": "^5.4.2"
   }
 }
-
