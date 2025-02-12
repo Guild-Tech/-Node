@@ -63,7 +63,7 @@ function Cart() {
           >
             <ArrowLeft size={16} />
           </Link>
-          <div className="gap-4 border-2 border-dashed border-gray-400 p-4 rounded-lg w-[1200px]">
+          <div className="gap-4 border-2 border-dashed border-gray-400 p-4 rounded-lg w-full">
             <div className="flex-1 text-black text-3xl font-bold">Cart</div>
           </div>
         </div>

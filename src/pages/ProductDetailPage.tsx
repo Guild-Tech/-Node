@@ -8,7 +8,8 @@ import hand from "../assets/hand.png";
 import Truck from "../assets/Truck.png";
 import { useNavigate } from "react-router-dom";
 import PCBuilder from "./PCBuilder";
-import { fetcher } from "../../services/api";
+import { fetcher } from "../services/api";
+// import { fetcher } from "../../services/api";
 
 function ProductDetailPage() {
   const navigate = useNavigate();
