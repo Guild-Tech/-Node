@@ -1,32 +1,65 @@
 import  { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { ArrowLeft, ShoppingCart, Cpu, Sparkles } from "lucide-react";
+import { ArrowLeft, ShoppingCart, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 // import speaker from "../assets/speaker.png";
 import phone from "../assets/Phone.png";
 import hand from "../assets/hand.png";
 import Truck from "../assets/Truck.png";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import PCBuilder from "./PCBuilder";
-import { fetcher } from "../../services/api";
+import { fetcher } from "../services/api";
+// import { useDispatch } from "react-redux";
+import {  IProduct, NodeConfig } from "../types";
+// import { addToCart } from "../features/cart/cartSlice";
+import { useCartStore } from "@/store/cartStore";
+import { calculatePrice } from "@/utils/price";
+// import { fetcher } from "../../services/api";
 
 function ProductDetailPage() {
-  const navigate = useNavigate();
-  const handleAddToCart = () => {
-    // Navigate to the cart page
-    navigate("/cart");
-  };
-
-  const [isCustomize, setIsCustomize] = useState(false);
+  // const dispatch = useDispatch();
   const { id } = useParams<{ id: string }>();
-  const [product, setProduct] = useState<any>();
+  const [product, setProduct] = useState<IProduct | null>(null);
+  const [isCustomize, setIsCustomize] = useState(false);
+
+
+  const addItem = useCartStore((state) => state.addItem);
+  // const items = useCartStore((state) => state.items);
+  const [config, setConfig] = useState({
+    software: 'Dappnode',
+    ram: product?.ram,
+    storage: product?.storage,
+    processor: product?.processor
+  });
+  // const [show3D, setShow3D] = useState(false);
+// console.log(config?.ram)
+  const handleAddToCart = () => {
+    
+    addItem(product as any, config as NodeConfig);
+  };
+  // const navigate = useNavigate();
+
+// console.log(product.price)
+  const price = calculatePrice(product?.price as string, config as NodeConfig);
+  console.log(price)
+
+
+
   useEffect(() => {
     fetcher(`/products/${id}`).then((data) => {
       setProduct(data);
+      setConfig((prevConfig) => ({
+        ...prevConfig,
+        ram: data.ram,
+        storage: data.storage,
+        processor: data.processor
+      }))
     })
   }, [id])
 
-  console.log(product)
+
+
+  // console.log(product[0]?.price)
   return (
     <div className="min-h-screen bg-white ">
       <div className="flex items-center gap-8 p-5">
@@ -68,7 +101,7 @@ function ProductDetailPage() {
 
       {isCustomize ? (
         <div className="">
-          <PCBuilder />
+          <PCBuilder  />
         </div>
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-1 gap-12">
@@ -96,7 +129,7 @@ function ProductDetailPage() {
 
               <p className="flex items-center text-lg">
                 <span className="mr-2">🚀</span> Best For: Running validator
-                nodes ({product?.supported_blockchains.join(", ")})
+                nodes ({product?.supported_blockchains?.join(", ")})
               </p>
               
 
