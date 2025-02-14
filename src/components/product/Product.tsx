@@ -133,7 +133,7 @@ const Product = ({products}: {products: any}) => {
   return (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {products.map((product: any ) => (
+        {products?.map((product: any ) => (
            <Card
            key={product.id} // ✅ product.id is a string now
            title={product.name}

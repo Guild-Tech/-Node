@@ -11,9 +11,12 @@ import PCBuilder from "./pages/PCBuilder";
 import Cart from "./pages/Cart";
 import CryptoPayment from "./pages/CryptoPayment";
 import PayCrypto from "./pages/PayCrypto";
+import { store } from "./store";
+import { Provider } from "react-redux";
 
 function App() {
   return (
+    <Provider store={store}>
     <Router>
       <Layout>
         <Routes>
@@ -31,6 +34,7 @@ function App() {
         </Routes>
       </Layout>
     </Router>
+    </Provider>
   );
 }
 
