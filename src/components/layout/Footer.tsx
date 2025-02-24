@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+// import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { 
   Server, 
@@ -14,7 +14,9 @@ import {
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
-
+  const handleEmail = async (e: React.FormEvent) => {
+    e.preventDefault();
+  }
   return (
     <footer className="bg-gray-900 text-white pt-20 pb-10">
       <div className="container mx-auto px-4">
@@ -100,12 +102,12 @@ export default function Footer() {
             <p className="text-gray-400 mb-4">
               Subscribe to our newsletter for the latest updates and features.
             </p>
-            <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
+            <form onSubmit={(e) => handleEmail(e)} className="space-y-4">
               <div className="flex">
                 <input
                   type="email"
                   placeholder="Enter your email"
-                  className="bg-gray-800 text-white px-4 py-2 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-green-400 flex-1"
+                  className="bg-gray-800 w-full text-white px-4 py-2 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-green-400 flex-1"
                 />
                 <button
                   type="submit"
