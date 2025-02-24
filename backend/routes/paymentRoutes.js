@@ -2,43 +2,50 @@ const express = require('express');
 const router = express.Router();
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
-// Endpoint to create a payment intent
-router.post('/create-payment-intent', async (req, res) => {
+// Endpoint to create a Stripe Checkout Session
+router.post('/create-checkout-session', async (req, res) => {
   try {
-    const { amount, currency } = req.body;
-    
-    // Create a payment intent
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount: amount,
-      currency: currency || 'ngn',
+    const { products, successUrl, cancelUrl } = req.body;
+
+    if (!products || products.length === 0) {
+      return res.status(400).json({ error: 'No products provided' });
+    }
+
+    const line_items = products.map((product) => ({
+      price_data: {
+        currency: 'usd',
+        product_data: {
+          name: product.name
+        },
+        unit_amount: Math.round(product.price * 100),
+      },
+      quantity: product.quantity,
+    }));
+
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      line_items,
+      mode: 'payment',
+      success_url: successUrl || `${process.env.FRONTEND_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: cancelUrl || `${process.env.FRONTEND_URL}/cancel`,
     });
 
-    res.send({ clientSecret: paymentIntent.client_secret });
+    res.json({ sessionId: session.id });
   } catch (error) {
-    console.error('Payment Intent Error:', error);
-    res.status(500).send({ message: 'Error creating payment intent' });
+    console.error('Error creating Stripe session:', error);
+    res.status(500).json({ error: 'Failed to create Stripe session' });
   }
 });
 
-// Endpoint to confirm a payment intent
-router.post('/confirm-payment-intent', async (req, res) => {
+// Endpoint to retrieve a checkout session
+router.get('/checkout-session/:sessionId', async (req, res) => {
   try {
-    const { paymentIntentId, paymentMethodId } = req.body;
-
-    // Confirm the payment intent
-    const paymentIntent = await stripe.paymentIntents.confirm(paymentIntentId, {
-      payment_method: paymentMethodId,
-    });
-
-    // If payment is successful, return confirmation response
-    if (paymentIntent.status === 'succeeded') {
-      res.send({ status: 'Payment confirmed', paymentIntent });
-    } else {
-      res.status(400).send({ message: 'Payment failed', paymentIntent });
-    }
+    const { sessionId } = req.params;
+    const session = await stripe.checkout.sessions.retrieve(sessionId);
+    res.json(session);
   } catch (error) {
-    console.error('Payment Confirmation Error:', error);
-    res.status(500).send({ message: 'Error confirming payment intent' });
+    console.error('Error retrieving checkout session:', error);
+    res.status(500).json({ error: 'Failed to retrieve checkout session' });
   }
 });
 
